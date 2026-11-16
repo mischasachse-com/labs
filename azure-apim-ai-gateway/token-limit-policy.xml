@@ -1,0 +1,17 @@
+<!--
+  Policy FRAGMENT — not a complete APIM policy document.
+
+  Paste this element inside the <inbound> section of the API policy that the
+  Microsoft Foundry import wizard generated, AFTER <base /> and BEFORE the
+  existing set-backend-service policy — it must not replace them.
+
+  counter-key = the APIM subscription, so each team subscription gets its own
+  token counter. 500 tokens/minute is a deliberately small lab limit, not a
+  production recommendation.
+-->
+<llm-token-limit
+    counter-key="@(context.Subscription.Id)"
+    tokens-per-minute="500"
+    estimate-prompt-tokens="false"
+    remaining-tokens-header-name="x-lab-remaining-tokens"
+    tokens-consumed-header-name="x-lab-consumed-tokens" />
